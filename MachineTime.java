@@ -5,18 +5,15 @@ import java.util.Date;
 public class MachineTime {
     
    
-    private Date fecha;
+    
     private Estado state;
+    private Reloj reloj;
+    private Thread hiloReloj;
 
-    public MachineTime(String folderPath) {
-        fecha = new Date();
-        
-       /*  try {
-            
-            state = new EstadoDetenido(this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } */
+    public MachineTime() {
+        reloj=new Reloj();
+        hiloReloj = new Thread(reloj);
+        state = new EstadoReproduciendo(this);
     }
 
 
@@ -44,6 +41,9 @@ public class MachineTime {
         return this.state;
     }
     
+    public Reloj getReloj(){
+        return this.reloj;
+    }
     
 
     /*
@@ -63,14 +63,35 @@ public class MachineTime {
     }
     
     
-    protected void saltarUnMes() {
-        this.fecha.setMonth(this.fecha.getMonth()+1);
+    protected void avanzar10Min() {
+        this.reloj.setMinutos(reloj.getMinutos()+10);;
         
     }
 
-    protected void retrocederUnMes() {
-        this.fecha.setMonth(this.fecha.getMonth()-1);
+    protected void retroceder10Min() {
+        this.reloj.setMinutos(reloj.getMinutos()-10);;
     }
+
+    protected void avanzar1hora(){
+        this.reloj.setHora(reloj.getHora()+1);;
+    }
+
+    protected void retroceder1hora(){
+        this.reloj.setHora(reloj.getHora()-1);;
+    }
+
+    protected void pausarTiempo(){
+        reloj.pausarReloj();
+    }
+
+    protected void onTiempo(){
+        reloj.onReloj();
+    }
+
+    protected String getHorarioActual(){
+        return reloj.getHorarioActual();
+    }
+
 
    /*  protected Time getMediaTime() {
         return javaMediaPlayer.getMediaTime();

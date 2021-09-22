@@ -8,36 +8,34 @@ public class EstadoDetenido extends Estado {
 
     @Override
     public void play() {
-        System.out.println("Reproduciendo en Epoca: \n"+
-        " Año: "+maquina.getFecha().getYear() +
-        " Mes: "+maquina.getFecha().getMonth()+
-        " Dia: "+maquina.getFecha().getDay()
+        this.maquina.onTiempo();
+        System.out.println("Play en horario actual seteado: \n"+
+        this.maquina.getHorarioActual()+" hs."
         );
     }
 
     @Override
     public void stop() {
-        Date fechaActual= maquina.getFecha();//guardo la fecha actual para regresar a ella al dar reproducir
-        System.out.println("Tiempo Detenido!");
+        System.out.println("El tiempo ya se encuentra detenido!");
        
     }
 
     @Override
     public void siguiente() {
-        // TODO Auto-generated method stub
+        maquina.avanzar1hora();
     
     }
 
     @Override
     public void anterior() {
-        // TODO Auto-generated method stub
+        maquina.retroceder1hora();
         
     }
 
     @Override
     public String estadoActual() {
         // TODO Auto-generated method stub
-        return null;
+        return "Detenido";
     }
     
 }

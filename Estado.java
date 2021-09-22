@@ -17,5 +17,4 @@ public abstract class Estado {
     public abstract void anterior();
 
     public abstract String estadoActual();
-
 }
